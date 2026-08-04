@@ -221,7 +221,7 @@ footer p{font-family:var(--f-mono);font-size:11px;color:var(--silk-dim);line-hei
     <div class="two">
       <div class="field">
         <label for="f_phone">WhatsApp number</label>
-        <input id="f_phone" type="tel" inputmode="numeric" placeholder="10 digits" autocomplete="tel">
+        <input id="f_phone" type="tel" inputmode="numeric" placeholder="10 digits — +91 is fine" autocomplete="tel">
         <div class="err">Enter a 10-digit mobile number.</div>
       </div>
       <div class="field">
@@ -367,7 +367,7 @@ const CONFIG = {
   payeeName:  "Joy University",
   amount:     "250.00",
   note:       "Symposium Registration",
-  sheetURL:   ""https://script.google.com/macros/s/AKfycbypRmnXNLLCSvFJopr1h4vPedGQvywqjra6yl6mhessvb44eMwRo8pztSJeu5Q6bUOb/exec",               // ← PASTE YOUR GOOGLE APPS SCRIPT WEB APP URL HERE (see README)
+  sheetURL:   "https://script.google.com/macros/s/AKfycbypRmnXNLLCSvFJopr1h4vPedGQvywqjra6yl6mhessvb44eMwRo8pztSJeu5Q6bUOb/exec",
   whatsapp:   "918144120859",   // fallback only, used if the sheet is unreachable
   deadline:   "2026-08-30T23:59:59+05:30"
 };
@@ -382,6 +382,14 @@ const EVENTS=[
 ];
 
 const val = id => document.getElementById(id).value.trim();
+
+/* accepts 9876543210 · +91 98765 43210 · 091-9876543210 → 9876543210 */
+function phone10(){
+  let d = val('f_phone').replace(/\D/g,'');
+  if(d.length===12 && d.startsWith('91')) d = d.slice(2);
+  if(d.length===11 && d.startsWith('0'))  d = d.slice(1);
+  return d;
+}
 function bad(id,cond){
   const f=document.getElementById(id).closest('.field');
   f.classList.toggle('bad',cond); return cond;
@@ -405,7 +413,7 @@ document.getElementById('to2').addEventListener('click',()=>{
   err = bad('f_name', val('f_name').length<2) || err;
   err = bad('f_college', val('f_college').length<2) || err;
   err = bad('f_dept', val('f_dept').length<2) || err;
-  err = bad('f_phone', !/^[6-9]\d{9}$/.test(val('f_phone').replace(/\D/g,''))) || err;
+  err = bad('f_phone', !/^[6-9]\d{9}$/.test(phone10())) || err;
   err = bad('f_email', !/^\S+@\S+\.\S+$/.test(val('f_email'))) || err;
   if(err){document.querySelector('.field.bad').scrollIntoView({block:'center'});return;}
   go(2);
@@ -494,7 +502,7 @@ document.getElementById('submitb').addEventListener('click',async ()=>{
     college:  val('f_college'),
     dept:     val('f_dept'),
     year:     val('f_year'),
-    phone:    val('f_phone'),
+    phone:    phone10(),
     email:    val('f_email'),
     events:   names().join(', '),
     amount:   '250.00',

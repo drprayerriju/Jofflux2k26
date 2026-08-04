@@ -367,7 +367,7 @@ const CONFIG = {
   payeeName:  "Joy University",
   amount:     "250.00",
   note:       "Symposium Registration",
-  sheetURL:   "https://script.google.com/macros/s/AKfycbypRmnXNLLCSvFJopr1h4vPedGQvywqjra6yl6mhessvb44eMwRo8pztSJeu5Q6bUOb/exec",
+  sheetURL:   "https://script.google.com/macros/s/AKfycbx7yZGuNIf9YocxJg0lxuEDO0AqaHTX39euUtI-x1UzI4Y3qLRSMIHvP6hhe_CiirB0/exec",
   whatsapp:   "918144120859",   // fallback only, used if the sheet is unreachable
   deadline:   "2026-08-30T23:59:59+05:30"
 };
@@ -489,6 +489,27 @@ document.getElementById('saveqr').addEventListener('click',()=>{
   a.href=document.getElementById('qrimg').src; a.download='joy-nexus-2k26-upi-250.png'; a.click();
 });
 
+/* ---------- talk to the Google Sheet ----------
+   A <script> tag is used instead of fetch(): Apps Script does not send CORS
+   headers, so fetch can never read the reply. JSONP can, which is how the page
+   knows whether the row was really saved.                                   */
+function sendToSheet(row){
+  return new Promise((resolve,reject)=>{
+    const cb = 'jn26cb' + Date.now();
+    const tag = document.createElement('script');
+    const timer = setTimeout(()=>{ done(); reject(new Error('No reply from Google in 20 seconds.')); }, 20000);
+
+    function done(){ clearTimeout(timer); delete window[cb]; tag.remove(); }
+
+    window[cb] = res => { done(); resolve(res); };
+    tag.onerror = () => { done(); reject(new Error('Could not reach the registration sheet. Check the web app URL and that access is set to Anyone.')); };
+
+    const q = new URLSearchParams(Object.assign({}, row, {callback: cb}));
+    tag.src = CONFIG.sheetURL + '?' + q.toString();
+    document.head.appendChild(tag);
+  });
+}
+
 /* ---------- submit ---------- */
 document.getElementById('submitb').addEventListener('click',async ()=>{
   if(bad('f_utr', !/^\d{12}$/.test(val('f_utr').replace(/\D/g,'')))){
@@ -513,17 +534,17 @@ document.getElementById('submitb').addEventListener('click',async ()=>{
   const btn=document.getElementById('submitb');
   btn.disabled=true; btn.textContent='Submitting…';
 
-  let ok=false;
-  if(CONFIG.sheetURL){
+  let ok=false, why='';
+  if(!CONFIG.sheetURL){
+    why='The registration sheet is not connected yet.';
+  }else{
     try{
-      // text/plain avoids a CORS preflight; Apps Script accepts the JSON body as-is
-      await fetch(CONFIG.sheetURL,{
-        method:'POST', mode:'no-cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify(row)
-      });
-      ok=true;
-    }catch(err){ ok=false; }
+      const res = await sendToSheet(row);        // JSONP — gives a real answer back
+      if(res && res.ok){ ok=true; }
+      else { why = (res && res.error) ? res.error : 'The sheet refused the entry.'; }
+    }catch(err){
+      why = err.message;
+    }
   }
 
   btn.disabled=false; btn.textContent='Submit registration';
@@ -542,7 +563,7 @@ document.getElementById('submitb').addEventListener('click',async ()=>{
     document.getElementById('fallback').style.display='block';
     document.getElementById('donetitle').textContent='Almost there';
     document.getElementById('donetext').textContent=
-      'We could not reach the registration sheet just now. Send these details on WhatsApp instead — your reference number is below.';
+      'Your registration could not be saved automatically ('+why+') Please send the details on WhatsApp instead — your reference number is below.';
     go(4);
   }
 });

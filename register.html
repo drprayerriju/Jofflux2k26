@@ -295,17 +295,18 @@ footer p{font-family:var(--f-mono);font-size:11px;color:var(--silk-dim);line-hei
 
     <div class="afterpay">
       <div class="h">After you pay</div>
-      <p class="lede" style="margin-bottom:16px">Take a screenshot, then enter the 12-digit transaction number so the registration committee can match your payment.</p>
+      <p class="lede" style="margin-bottom:16px">Take a screenshot, then finish the short form below — your details are already filled in, just add your 12-digit UPI transaction ID (UTR).</p>
 
-      <div class="field">
-        <label for="f_utr">UPI transaction ID (UTR)</label>
-        <input id="f_utr" type="text" inputmode="numeric" placeholder="12-digit number from your payment app">
-        <div class="hint">GPay: tap the payment → Transaction ID. PhonePe: payment → UTR. Paytm: order details → UPI reference.</div>
-        <div class="err">A UTR is 12 digits.</div>
+      <div class="formslot">
+        <iframe id="gformFrame" title="JOY NEXUS 2K26 registration form" loading="lazy"></iframe>
       </div>
 
-      <button class="btn btn-primary btn-block" id="submitb">Submit registration</button>
-      <div class="note">Keep the payment screenshot on your phone — you may be asked for it at the registration desk.</div>
+      <button class="btn btn-primary btn-block" id="donebtn" style="margin-top:16px">I've submitted the form above ✓</button>
+      <div class="note">
+        Keep the payment screenshot on your phone — you may be asked for it at the registration desk.<br>
+        Form not loading? <a href="#" id="openformtab" target="_blank" rel="noopener" style="color:var(--copper);text-decoration:underline">Open it in a new tab</a>
+        or <a href="#" id="wa1" target="_blank" rel="noopener" style="color:var(--copper);text-decoration:underline">send your details on WhatsApp</a> instead.
+      </div>
     </div>
 
     <div class="navrow">
@@ -321,10 +322,6 @@ footer p{font-family:var(--f-mono);font-size:11px;color:var(--silk-dim);line-hei
       <p class="lede" id="donetext">Your details have been recorded. Save the reference number below — bring it and your payment screenshot to the registration desk on 1 September.</p>
 
       <div class="ticket" id="ticket"></div>
-
-      <div id="fallback" style="display:none;margin-top:16px">
-        <a class="btn btn-primary btn-block" id="wa2" href="#" target="_blank" rel="noopener">Send on WhatsApp instead</a>
-      </div>
 
       <div class="navrow">
         <a class="btn btn-ghost" href="index.html">Back to home</a>
@@ -367,10 +364,47 @@ const CONFIG = {
   payeeName:  "Joy University",
   amount:     "250.00",
   note:       "Symposium Registration",
-  sheetURL:   "https://script.google.com/macros/s/AKfycbx7yZGuNIf9YocxJg0lxuEDO0AqaHTX39euUtI-x1UzI4Y3qLRSMIHvP6hhe_CiirB0/exec",
-  whatsapp:   "918144120859",   // fallback only, used if the sheet is unreachable
+  googleFormId: "1FAIpQLSdMh8eqfFVRJMqmdR3Y7O2jm30uwN8PWCxw1EGyK24zaOWdPg",
+  whatsapp:   "918144120859",   // fallback only, used if the form can't be reached
   deadline:   "2026-08-30T23:59:59+05:30"
 };
+
+// Google Form field entry IDs, from Forms → ⋮ → Get pre-filled link
+const FORM_ENTRY = {
+  name:   "entry.211570928",
+  college:"entry.2103152628",
+  dept:   "entry.2091364838",
+  year:   "entry.232364030",
+  phone:  "entry.2125950854",
+  email:  "entry.1331547303",
+  lunch:  "entry.2144280633",
+  events: "entry.1237585795"
+  // UTR is deliberately not pre-filled — the participant enters it inside the form
+};
+
+// Your site's dropdown values don't match the Google Form's option labels,
+// so map them here rather than editing either independently.
+const YEAR_MAP = {
+  "1st year":"I Year", "2nd year":"II Year", "3rd year":"III Year",
+  "4th year":"IV Year", "PG":"PG", "Faculty":"" // no matching option yet — left blank
+};
+const LUNCH_MAP = { "Vegetarian":"Veg", "Non-vegetarian":"Non-Veg" };
+
+function buildFormUrl(embed){
+  const base=`https://docs.google.com/forms/d/e/${CONFIG.googleFormId}/viewform`;
+  const p=new URLSearchParams();
+  p.set('usp','pp_url');
+  if(embed) p.set('embedded','true');
+  p.append(FORM_ENTRY.name, val('f_name'));
+  p.append(FORM_ENTRY.college, val('f_college'));
+  p.append(FORM_ENTRY.dept, val('f_dept'));
+  const yr=YEAR_MAP[val('f_year')]||''; if(yr) p.append(FORM_ENTRY.year, yr);
+  p.append(FORM_ENTRY.phone, val('f_phone'));
+  p.append(FORM_ENTRY.email, val('f_email'));
+  const ln=LUNCH_MAP[val('f_lunch')]||''; if(ln) p.append(FORM_ENTRY.lunch, ln);
+  names().forEach(n=>p.append(FORM_ENTRY.events, n));
+  return base+'?'+p.toString();
+}
 
 const EVENTS=[
  {id:"E1",n:"Circuit Crackers",t:"10:00 AM – 1:00 PM",s:600,e:780,p:"₹3,000 / ₹2,000 / ₹1,000"},
@@ -463,6 +497,8 @@ document.getElementById('to3').addEventListener('click',()=>{
   document.getElementById('whosum').textContent =
     val('f_name')+' · '+val('f_dept')+', '+val('f_year')+' · '+val('f_college');
   document.getElementById('chosenlist').innerHTML=names().map(n=>`<li>${n}</li>`).join('');
+  document.getElementById('gformFrame').src=buildFormUrl(true);
+  document.getElementById('openformtab').href=buildFormUrl(false);
   go(3);
 });
 
@@ -481,67 +517,18 @@ document.getElementById('saveqr').addEventListener('click',()=>{
   a.href=document.getElementById('qrimg').src; a.download='joy-nexus-2k26-upi-250.png'; a.click();
 });
 
-/* ---------- submit ---------- */
-document.getElementById('submitb').addEventListener('click',async ()=>{
-  if(bad('f_utr', !/^\d{12}$/.test(val('f_utr').replace(/\D/g,'')))){
-    document.getElementById('f_utr').scrollIntoView({block:'center'});return;
-  }
+/* ---------- finish: the Google Form (embedded above) is the actual submission.
+   This button just confirms it and shows the participant their reference. ---------- */
+document.getElementById('wa1').addEventListener('click',(ev)=>{
+  const msg=`JOY NEXUS 2K26 — Registration\nName: ${val('f_name')}\nCollege: ${val('f_college')}\nDept/Year: ${val('f_dept')}, ${val('f_year')}\nPhone: ${val('f_phone')}\nEmail: ${val('f_email')}\nEvents: ${names().join(', ')}\nAmount paid: Rs 250\nLunch: ${val('f_lunch')}\n(UTR to follow — form did not load)`;
+  ev.currentTarget.href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
+});
 
+document.getElementById('donebtn').addEventListener('click',()=>{
   const ref='JN26-'+Math.random().toString(36).slice(2,6).toUpperCase();
-  const row={
-    ref:      ref,
-    name:     val('f_name'),
-    college:  val('f_college'),
-    dept:     val('f_dept'),
-    year:     val('f_year'),
-    phone:    val('f_phone'),
-    email:    val('f_email'),
-    events:   names().join(', '),
-    amount:   '250.00',
-    utr:      val('f_utr'),
-    lunch:    val('f_lunch')
-  };
-
-  const btn=document.getElementById('submitb');
-  btn.disabled=true; btn.textContent='Submitting…';
-
-  let ok=false;
-  if(CONFIG.sheetURL){
-    try{
-      // text/plain avoids a CORS preflight; Apps Script accepts the JSON body as-is.
-      // A hard timeout stops the button hanging forever if Google is slow to respond.
-      const controller=new AbortController();
-      const timeout=setTimeout(()=>controller.abort(),10000);
-      await fetch(CONFIG.sheetURL,{
-        method:'POST', mode:'no-cors',
-        headers:{'Content-Type':'text/plain;charset=utf-8'},
-        body:JSON.stringify(row),
-        signal:controller.signal
-      });
-      clearTimeout(timeout);
-      ok=true;
-    }catch(err){ ok=false; }
-  }
-
-  btn.disabled=false; btn.textContent='Submit registration';
-
-  if(ok){
-    document.getElementById('ticket').innerHTML=
-      `<b>REFERENCE</b> ${ref}<br><b>NAME</b> ${row.name}<br><b>EVENTS</b> ${row.events}<br><b>UTR</b> ${row.utr}<br><b>AMOUNT</b> ₹250`;
-    document.getElementById('fallback').style.display='none';
-    go(4);
-  }else{
-    // sheet not reachable — offer WhatsApp so the registration is never lost
-    const msg=`JOY NEXUS 2K26 — Registration\nRef: ${ref}\nName: ${row.name}\nCollege: ${row.college}\nDept/Year: ${row.dept}, ${row.year}\nPhone: ${row.phone}\nEmail: ${row.email}\nEvents: ${row.events}\nAmount paid: Rs 250\nUTR: ${row.utr}\nLunch: ${row.lunch}`;
-    document.getElementById('wa2').href=`https://wa.me/${CONFIG.whatsapp}?text=${encodeURIComponent(msg)}`;
-    document.getElementById('ticket').innerHTML=
-      `<b>REFERENCE</b> ${ref}<br><b>NAME</b> ${row.name}<br><b>EVENTS</b> ${row.events}<br><b>UTR</b> ${row.utr}<br><b>AMOUNT</b> ₹250`;
-    document.getElementById('fallback').style.display='block';
-    document.getElementById('donetitle').textContent='Almost there';
-    document.getElementById('donetext').textContent=
-      'We could not reach the registration sheet just now. Send these details on WhatsApp instead — your reference number is below.';
-    go(4);
-  }
+  document.getElementById('ticket').innerHTML=
+    `<b>REFERENCE</b> ${ref}<br><b>NAME</b> ${val('f_name')}<br><b>EVENTS</b> ${names().join(', ')}<br><b>AMOUNT</b> ₹250`;
+  go(4);
 });
 
 /* ---------- deadline ---------- */

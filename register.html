@@ -221,7 +221,7 @@ footer p{font-family:var(--f-mono);font-size:11px;color:var(--silk-dim);line-hei
     <div class="two">
       <div class="field">
         <label for="f_phone">WhatsApp number</label>
-        <input id="f_phone" type="tel" inputmode="numeric" placeholder="10 digits — +91 is fine" autocomplete="tel">
+        <input id="f_phone" type="tel" inputmode="numeric" placeholder="10 digits" autocomplete="tel">
         <div class="err">Enter a 10-digit mobile number.</div>
       </div>
       <div class="field">
@@ -382,14 +382,6 @@ const EVENTS=[
 ];
 
 const val = id => document.getElementById(id).value.trim();
-
-/* accepts 9876543210 · +91 98765 43210 · 091-9876543210 → 9876543210 */
-function phone10(){
-  let d = val('f_phone').replace(/\D/g,'');
-  if(d.length===12 && d.startsWith('91')) d = d.slice(2);
-  if(d.length===11 && d.startsWith('0'))  d = d.slice(1);
-  return d;
-}
 function bad(id,cond){
   const f=document.getElementById(id).closest('.field');
   f.classList.toggle('bad',cond); return cond;
@@ -413,7 +405,7 @@ document.getElementById('to2').addEventListener('click',()=>{
   err = bad('f_name', val('f_name').length<2) || err;
   err = bad('f_college', val('f_college').length<2) || err;
   err = bad('f_dept', val('f_dept').length<2) || err;
-  err = bad('f_phone', !/^[6-9]\d{9}$/.test(phone10())) || err;
+  err = bad('f_phone', !/^[6-9]\d{9}$/.test(val('f_phone').replace(/\D/g,''))) || err;
   err = bad('f_email', !/^\S+@\S+\.\S+$/.test(val('f_email'))) || err;
   if(err){document.querySelector('.field.bad').scrollIntoView({block:'center'});return;}
   go(2);
@@ -489,27 +481,6 @@ document.getElementById('saveqr').addEventListener('click',()=>{
   a.href=document.getElementById('qrimg').src; a.download='joy-nexus-2k26-upi-250.png'; a.click();
 });
 
-/* ---------- talk to the Google Sheet ----------
-   A <script> tag is used instead of fetch(): Apps Script does not send CORS
-   headers, so fetch can never read the reply. JSONP can, which is how the page
-   knows whether the row was really saved.                                   */
-function sendToSheet(row){
-  return new Promise((resolve,reject)=>{
-    const cb = 'jn26cb' + Date.now();
-    const tag = document.createElement('script');
-    const timer = setTimeout(()=>{ done(); reject(new Error('No reply from Google in 20 seconds.')); }, 20000);
-
-    function done(){ clearTimeout(timer); delete window[cb]; tag.remove(); }
-
-    window[cb] = res => { done(); resolve(res); };
-    tag.onerror = () => { done(); reject(new Error('Could not reach the registration sheet. Check the web app URL and that access is set to Anyone.')); };
-
-    const q = new URLSearchParams(Object.assign({}, row, {callback: cb}));
-    tag.src = CONFIG.sheetURL + '?' + q.toString();
-    document.head.appendChild(tag);
-  });
-}
-
 /* ---------- submit ---------- */
 document.getElementById('submitb').addEventListener('click',async ()=>{
   if(bad('f_utr', !/^\d{12}$/.test(val('f_utr').replace(/\D/g,'')))){
@@ -523,7 +494,7 @@ document.getElementById('submitb').addEventListener('click',async ()=>{
     college:  val('f_college'),
     dept:     val('f_dept'),
     year:     val('f_year'),
-    phone:    phone10(),
+    phone:    val('f_phone'),
     email:    val('f_email'),
     events:   names().join(', '),
     amount:   '250.00',
@@ -534,17 +505,22 @@ document.getElementById('submitb').addEventListener('click',async ()=>{
   const btn=document.getElementById('submitb');
   btn.disabled=true; btn.textContent='Submitting…';
 
-  let ok=false, why='';
-  if(!CONFIG.sheetURL){
-    why='The registration sheet is not connected yet.';
-  }else{
+  let ok=false;
+  if(CONFIG.sheetURL){
     try{
-      const res = await sendToSheet(row);        // JSONP — gives a real answer back
-      if(res && res.ok){ ok=true; }
-      else { why = (res && res.error) ? res.error : 'The sheet refused the entry.'; }
-    }catch(err){
-      why = err.message;
-    }
+      // text/plain avoids a CORS preflight; Apps Script accepts the JSON body as-is.
+      // A hard timeout stops the button hanging forever if Google is slow to respond.
+      const controller=new AbortController();
+      const timeout=setTimeout(()=>controller.abort(),10000);
+      await fetch(CONFIG.sheetURL,{
+        method:'POST', mode:'no-cors',
+        headers:{'Content-Type':'text/plain;charset=utf-8'},
+        body:JSON.stringify(row),
+        signal:controller.signal
+      });
+      clearTimeout(timeout);
+      ok=true;
+    }catch(err){ ok=false; }
   }
 
   btn.disabled=false; btn.textContent='Submit registration';
@@ -563,7 +539,7 @@ document.getElementById('submitb').addEventListener('click',async ()=>{
     document.getElementById('fallback').style.display='block';
     document.getElementById('donetitle').textContent='Almost there';
     document.getElementById('donetext').textContent=
-      'Your registration could not be saved automatically ('+why+') Please send the details on WhatsApp instead — your reference number is below.';
+      'We could not reach the registration sheet just now. Send these details on WhatsApp instead — your reference number is below.';
     go(4);
   }
 });

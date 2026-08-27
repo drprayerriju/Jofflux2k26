@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>JOY FLUX 2K26 — International Technical Symposium | Joy University</title>
-<meta name="description" content="JOY FLUX 2K26, the International Technical Symposium of the School of Engineering and Technology, Joy University. September 1, 2026. Six events, prizes worth Rs 34,000, registration Rs 250 for other colleges and Rs 100 for Joy University students including lunch, event kit, ID card and refreshments.">
+<meta name="description" content="JOY FLUX 2K26, the International Technical Symposium of the School of Engineering and Technology, Joy University. September 1, 2026. Six events, prizes worth Rs 34,000, registration Rs 250 including lunch, event kit, ID card and refreshments.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
@@ -271,44 +271,6 @@ nav.desk a:hover{color:var(--copper)}
 .reg{background:var(--paper);color:var(--ink)}
 .reg .eyebrow{color:var(--crimson)}
 .reg .sec-head p{color:var(--ink-dim)}
-.routes{display:grid;grid-template-columns:1fr;gap:16px}
-.route{
-  position:relative;display:block;background:#fff;color:var(--ink);
-  border:2px solid var(--ink);border-radius:var(--r);
-  padding:26px 22px 22px;overflow:hidden;
-  transition:transform .16s ease,box-shadow .16s ease,border-color .16s ease;
-}
-.route::before{content:"";position:absolute;left:0;top:0;bottom:0;width:6px;background:var(--crimson)}
-.route:hover{transform:translateY(-3px);border-color:var(--crimson);box-shadow:0 10px 26px rgba(18,32,28,.16)}
-.route .rfee{
-  position:absolute;top:16px;right:16px;
-  font-family:var(--f-display);font-weight:700;font-size:clamp(22px,5.5vw,28px);
-  letter-spacing:-.02em;color:var(--crimson);line-height:1;
-}
-.route .rinc{
-  display:block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.06em;
-  text-transform:uppercase;color:var(--ink-dim);margin-bottom:14px;
-}
-.route h3{padding-right:66px}
-.route .rnum{
-  font-family:var(--f-mono);font-size:11px;letter-spacing:.2em;color:var(--crimson);font-weight:600;
-}
-.route h3{
-  font-family:var(--f-display);font-weight:700;letter-spacing:-.02em;line-height:1.1;
-  font-size:clamp(22px,5.4vw,29px);margin:8px 0 10px;
-}
-.route p{font-size:15px;color:var(--ink-dim);margin-bottom:16px}
-.route .rgo{
-  display:inline-block;background:var(--crimson);color:#fff;
-  font-family:var(--f-mono);font-size:12.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
-  padding:13px 18px;border-radius:var(--r);
-}
-.route:hover .rgo{background:var(--crimson-lift)}
-.rnote{
-  margin-top:18px;font-family:var(--f-mono);font-size:12.5px;line-height:1.9;color:var(--ink-dim);
-  border-left:3px solid var(--crimson);padding-left:14px;
-}
-.rnote b{color:var(--ink)}
 .steps{display:grid;grid-template-columns:1fr;gap:14px}
 .step{background:#fff;border:1px solid rgba(18,32,28,.13);border-radius:var(--r);padding:20px 18px}
 .step .num{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--crimson)}
@@ -379,7 +341,6 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
   .board{grid-template-columns:repeat(2,1fr);gap:16px}
   .inc{grid-template-columns:repeat(4,1fr)}
   .steps{grid-template-columns:repeat(3,1fr)}
-  .routes{grid-template-columns:repeat(3,1fr)}
   .contacts{grid-template-columns:repeat(2,1fr)}
   .ribbon .wrap{grid-template-columns:repeat(3,1fr)}
   .rb{border-bottom:none;border-right:1px solid rgba(34,22,10,.18)}
@@ -413,7 +374,7 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
         <a href="#prizes">Prizes</a>
         <a href="#schedule">Schedule</a>
         <a href="#contact">Contact</a>
-        <a href="#register" class="btn btn-primary btn-sm">Register</a>
+        <a href="register.html" class="btn btn-primary btn-sm">Register ₹250</a>
       </nav>
       <button class="burger" id="burger" aria-label="Open menu" aria-expanded="false">
         <span></span><span></span><span></span>
@@ -422,9 +383,9 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
     <nav class="mobnav" id="mobnav">
       <a href="#events">Events</a>
       <a href="#prizes">Prizes</a>
-      <a href="#includes">What the fee covers</a>
+      <a href="#includes">What ₹250 covers</a>
       <a href="#schedule">Schedule</a>
-      <a href="#register">Register</a>
+      <a href="register.html">Register</a>
       <a href="#contact">Contact</a>
     </nav>
   </div>
@@ -457,7 +418,7 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
     </div>
 
     <div class="hero-cta">
-      <a href="#register" class="btn btn-primary">Register</a>
+      <a href="register.html" class="btn btn-primary">Register — ₹250</a>
       <a href="#events" class="btn btn-ghost">See the events</a>
     </div>
   </div>
@@ -467,7 +428,7 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
 <div class="ribbon">
   <div class="wrap">
     <div class="rb"><b>₹34,000</b><span>Total prize money</span></div>
-    <div class="rb"><b>₹250 / ₹100</b><span>Outside colleges · Joy University &amp; online</span></div>
+    <div class="rb"><b>₹250</b><span>One fee · lunch, kit, ID card, refreshments</span></div>
     <div class="rb"><b>3 events</b><span>Maximum each participant may enter</span></div>
   </div>
 </div>
@@ -524,8 +485,8 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
   <div class="wrap">
     <div class="sec-head">
       <div class="eyebrow">Registration</div>
-      <h2>Your fee covers the whole day</h2>
-      <p>₹250 for participants from other colleges, ₹100 for Joy University students — whether you enter one event or three. Nothing else to pay on campus.</p>
+      <h2>One fee covers the whole day</h2>
+      <p>₹250 per participant, whether you enter one event or three. Nothing else to pay on campus.</p>
     </div>
 
     <div class="inc">
@@ -536,8 +497,8 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
     </div>
 
     <div class="feebox">
-      <div class="amt">₹250 <span style="font-size:.5em;color:var(--silk-dim)">/</span> ₹100</div>
-      <div class="txt">₹250 OTHER COLLEGES · ₹100 JOY UNIVERSITY &amp; ONLINE PAPER<br>UP TO 3 EVENTS · CERTIFICATE FOR EVERY PARTICIPANT</div>
+      <div class="amt">₹250</div>
+      <div class="txt">PER PARTICIPANT · ALL-INCLUSIVE<br>UP TO 3 EVENTS · CERTIFICATE FOR EVERY PARTICIPANT</div>
     </div>
   </div>
 </section>
@@ -588,7 +549,7 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
         <p>SAC</p>
       </div>
       <div class="row">
-        <time>10:15 AM – 1:00 PM</time>
+        <time>11:00 AM – 1:00 PM</time>
         <h4>Paper Presentation — online</h4>
         <p>ONLINE MEETING LINK</p>
         
@@ -612,47 +573,38 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
   </div>
 </section>
 
-<!-- ================= REGISTER ================= -->
+<!-- ================= REGISTER CTA ================= -->
 <section id="register" class="reg">
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow">Three ways to register · closes 30 August</div>
+      <div class="eyebrow">Three steps · about two minutes</div>
       <h2>Register</h2>
-      <p>Pick the one that describes you — the fee differs by route.</p>
+      <p>Pick your events, pay ₹250 by UPI, then enter the transaction number. Your seat is confirmed once the registration committee verifies the payment.</p>
     </div>
 
-    <div class="routes">
-      <a class="route" href="register.html">
-        <span class="rnum">01</span>
-        <span class="rfee">₹250</span>
-        <h3>Outside College Participants</h3>
-        <p>Students from any institution other than Joy University. Choose up to three events, pay by UPI, and enter your transaction number.</p>
-        <span class="rinc">Includes lunch · event kit · ID card · refreshments</span>
-        <span class="rgo">Outside College Participant →</span>
-      </a>
-
-      <a class="route" href="https://forms.gle/Tb4uJyt2MyJJpkWMA" target="_blank" rel="noopener">
-        <span class="rnum">02</span>
-        <span class="rfee">₹100</span>
-        <h3>Joy University Participants</h3>
-        <p>For students of Joy University. Opens the internal registration form for on-campus participants.</p>
-        <span class="rinc">Includes lunch · event kit · ID card · refreshments</span>
-        <span class="rgo">Joy University Participant →</span>
-      </a>
-
-      <a class="route" href="https://forms.gle/AEKTDwrByFz3d9fr9" target="_blank" rel="noopener">
-        <span class="rnum">03</span>
-        <span class="rfee">₹100</span>
-        <h3>Online Paper Presentation</h3>
-        <p>Presenting your paper remotely rather than travelling to campus. Online session runs 10:15 AM – 1:00 PM.</p>
-        <span class="rinc">E-certificate · no campus lunch or kit</span>
-        <span class="rgo">Online Paper Participant →</span>
-      </a>
+    <div class="steps">
+      <div class="step">
+        <div class="num">Step 01</div>
+        <h3>Choose your events</h3>
+        <p>Up to three competitions per participant. The form blocks a fourth and warns you about clashing timings.</p>
+      </div>
+      <div class="step">
+        <div class="num">Step 02</div>
+        <h3>Pay ₹250 by UPI</h3>
+        <p>Scan the university QR — the amount is already set to ₹250 — or tap to open GPay, PhonePe or Paytm on your phone.</p>
+      </div>
+      <div class="step">
+        <div class="num">Step 03</div>
+        <h3>Enter the transaction number</h3>
+        <p>Submit your details with the 12-digit UTR from the payment. Confirmation reaches you on WhatsApp.</p>
+      </div>
     </div>
 
-    <div class="rnote">
-      <b>All three close on 30 August 2026.</b> Payments go to the official Joy University UPI account.
-      Each participant may enter a maximum of three competitions.
+    <div style="margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center">
+      <a href="register.html" class="btn btn-primary">Start registration — ₹250</a>
+      <span style="font-family:var(--f-mono);font-size:12px;color:var(--ink-dim);letter-spacing:.04em">
+        REGISTRATION CLOSES 30 AUGUST · PAYMENTS GO TO THE OFFICIAL JOY UNIVERSITY UPI ACCOUNT
+      </span>
     </div>
   </div>
 </section>
@@ -728,8 +680,8 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
 </footer>
 
 <div class="stickycta">
-  <div class="fee"><b>₹100–₹250</b>by route</div>
-  <a href="#register" class="btn btn-primary">Register now</a>
+  <div class="fee"><b>₹250</b>all-inclusive</div>
+  <a href="register.html" class="btn btn-primary">Register now</a>
 </div>
 
 <!-- ================= MODAL ================= -->
@@ -745,54 +697,44 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
 const EVENTS = [
 {
   id:"E1", name:"Circuit Crackers", cls:"",
-  blurb:"Three practical rounds — identify components, debug a faulty circuit, then build one from a diagram.",
-  time:"10:00 AM – 1:00 PM", venue:"JOSHUVA 001, ECE Lab",
+  blurb:"Identify electronic symbols under time pressure, then design the circuit you're handed the components for.",
+  time:"10:00 AM – 1:00 PM", venue:"JOSHUVA 001, ECE Lab", incharge:"Ms. An Belin Felicsona",
   team:"Individual", prize:"₹3,000 / ₹2,000 / ₹1,000",
   rounds:[
-    "<b>Round 1 — Identify the component (10 × 30 seconds).</b> A component or its image is shown; name it and state its basic use. Ten questions, 30 seconds each, and no changing an answer once the time is up. One mark for the correct name and one for the correct function. No negative marking.",
-    "<b>Round 2 — Circuit debugging (10–15 minutes).</b> You are given a circuit containing one or more deliberate faults. Identify the error, explain it to the judge, correct it, and demonstrate the correct output.",
-    "<b>Round 3 — Build the circuit (15–20 minutes).</b> Build the given circuit exactly as per the diagram using only the components provided. Inform the judge when ready; the circuit counts as successful only when it produces the specified output."
+    "<b>Round 1 — Name the symbol (10:00 – 10:20 AM).</b> Participants are shown symbols of electronic devices and must identify each one correctly.",
+    "<b>Round 2 — Circuit design (10:20 – 11:00 AM).</b> Participants are given the apparatus required, must identify the circuit and design it."
   ],
   rules:[
-    "This is an individual event.",
-    "Report at the venue 15 minutes before the scheduled start time.",
-    "Carry your college ID card and wear appropriate attire.",
-    "Use only the components and equipment provided by the organisers.",
-    "Mobile phones, internet, AI tools, reference books and outside assistance are not permitted during the rounds.",
-    "Do not begin modifying or building a circuit until the START signal is given.",
-    "Inform the judge before testing or powering a circuit, and switch the supply off before making major changes.",
-    "Speed alone does not win — correctness and safety carry equal weight.",
-    "Misconduct, cheating, or intentional damage to equipment leads to disqualification.",
-    "The decision of the judges and event coordinators is final and binding."
+    "Stay strictly within the time allotted for each round.",
+    "Mobile phones and electronic gadgets are not permitted inside the lab.",
+    "Manage your time efficiently — rounds will not be extended.",
+    "Any form of malpractice leads to immediate disqualification.",
+    "Be at the venue 10 minutes before 10:00 AM."
   ],
   draft:false
 },
 {
   id:"E2", name:"Project Expo", cls:"",
   blurb:"Theme — Innovating for a Smart, Sustainable and Connected Future. Bring a working model or prototype.",
-  time:"10:00 AM – 1:00 PM", venue:"SAC",
+  time:"10:00 AM – 1:00 PM", venue:"SAC", incharge:"Ms. Sudha Priya",
   team:"Teams of up to 3", prize:"₹5,000 / ₹3,000 / ₹2,000",
   rounds:[
-    "<b>Setup.</b> Complete your project setup within the time allotted at the venue.",
-    "<b>Judging.</b> 5 minutes to demonstrate, followed by 3 minutes of questions from the panel."
+    "<b>Setup (9:00 – 9:45 AM).</b> Assemble your model at the allotted table. Power outlets are provided.",
+    "<b>Judging (10:00 AM – 1:00 PM).</b> 5 minutes to demonstrate, 3 minutes of questions from the judging panel."
   ],
   rules:[
-    "Each team may have a maximum of 3 participants.",
-    "The project must relate to the announced expo theme.",
-    "Working prototypes are preferred over static or simulated models.",
-    "Bring your own laptop, poster, extension board, tools and required consumables.",
-    "Projects previously awarded or presented at another symposium are not eligible.",
-    "Judging covers innovation, technical depth, feasibility, presentation and social relevance.",
-    "Report at the venue at least 10 minutes before the event.",
-    "All participants must carry a valid college ID.",
-    "The decision of the judging panel is final and binding."
+    "The project must relate to the announced theme.",
+    "Bring your own laptop, poster, extension board and any consumables.",
+    "Working models score higher than static or simulated demonstrations.",
+    "Projects previously awarded at another symposium are not eligible.",
+    "Judging covers innovation, technical depth, feasibility, presentation and social relevance."
   ],
   draft:false
 },
 {
   id:"E3", name:"Paper Presentation", cls:"",
   blurb:"Present research and technical ideas, offline or online. The Best Paper Award carries an extra ₹3,000.",
-  time:"10:00 AM – 1:00 PM offline · 10:15 AM – 1:00 PM online", venue:"JOV 103",
+  time:"10:00 AM – 1:00 PM offline · 11:00 AM – 1:00 PM online", venue:"JOV 103", incharge:"Offline: Dr. Praveen Laws · Online: Dr. R. Prayer Riju",
   team:"Up to 2 presenters", prize:"₹3,000 / ₹2,000 / ₹1,000 + Best Paper ₹3,000",
   rounds:[
     "<b>Abstract screening.</b> Send an abstract of about 250 words before the announced deadline. Shortlisted authors are informed by email.",
@@ -801,7 +743,7 @@ const EVENTS = [
   rules:[
     "Papers may come from any engineering or interdisciplinary domain.",
     "Prepare slides in IEEE format; carry a copy on a pen drive and in your email.",
-    "Both presenters must register separately and pay the fee for their route.",
+    "Both presenters must register separately and pay ₹250 each.",
     "Plagiarised work is disqualified without appeal.",
     "Online presenters must join the meeting link 15 minutes early with a stable connection."
   ],
@@ -809,29 +751,27 @@ const EVENTS = [
 },
 {
   id:"E4", name:"Technical Quiz", cls:"",
-  blurb:"Mind Marathon — engineering and technology, science and daily tech, and current affairs.",
-  time:"2:00 – 3:00 PM", venue:"JOV 204",
-  team:"Teams of 1–2", prize:"₹1,500 / ₹1,000 / ₹500",
+  blurb:"Mind Marathon — an interdisciplinary quiz across engineering, science and technology current affairs.",
+  time:"2:00 – 3:00 PM", venue:"JOV 204", incharge:"Ms. Andreena Joseph",
+  team:"Teams of 2", prize:"₹1,500 / ₹1,000 / ₹500",
   rounds:[
-    "<b>Round 1 — Preliminary screening.</b> A filter round; the top teams qualify. A sudden-death tie-breaker settles any tie for a qualifying place.",
-    "<b>Round 2 — Rapid round.</b> Direct questions to each team. +10 for a correct answer, no negative marking. An unanswered question passes to the next team and carries 5 marks.",
-    "<b>Round 3 — Buzzer finale.</b> The first team to buzz gets 5 seconds to answer. +10 for a correct answer, −5 for an incorrect one."
+    "<b>Prelims.</b> Written multiple-choice round; the top teams move forward.",
+    "<b>Rapid fire.</b> Timed questions passed between teams.",
+    "<b>Buzzer finale.</b> Negative marking applies on the buzzer round."
   ],
   rules:[
-    "Each team must consist of 1 to 2 members.",
-    "Mobile phones, smartwatches and any electronic gadgets are strictly prohibited — carrying one at any point means immediate elimination.",
-    "Questions are drawn from engineering and technology, science and daily tech, and current affairs.",
-    "Maintain discipline and decorum throughout the event.",
-    "Malpractice, prompting from the audience, or cheating leads to immediate disqualification.",
+    "Both team members must be registered participants.",
+    "Phones, smart watches and calculators stay switched off and in your bag.",
+    "The quizmaster's decision is final on every question.",
     "Ties are broken by a sudden-death question.",
-    "In any dispute, the decision of the Quiz Master and the judging panel is final and binding."
+    "Teams arriving after the prelims begin are not admitted."
   ],
   draft:false
 },
 {
   id:"E5", name:"Poster Presentation", cls:"",
   blurb:"Showcase research and technical ideas on a printed poster. Open to all disciplines.",
-  time:"10:00 AM – 1:00 PM", venue:"JOV 202",
+  time:"10:00 AM – 1:00 PM", venue:"JOV 202", incharge:"Mr. Prabhu K",
   team:"Up to 2 authors", prize:"₹1,500 / ₹1,000 / ₹500",
   rounds:[
     "<b>Display setup (9:30 – 10:00 AM).</b> Mount your poster at the allotted board.",
@@ -849,7 +789,7 @@ const EVENTS = [
 {
   id:"E6", name:"Fashion Styling", cls:"",
   blurb:"Create a complete look using your own garments and accessories, styled on a live model.",
-  time:"10:00 – 11:30 AM", venue:"Fashion Lab",
+  time:"10:00 – 11:30 AM", venue:"Fashion Lab", incharge:"Ms. Aruna",
   team:"Individual or pair", prize:"₹1,500 / ₹1,000 / ₹500",
   rounds:[
     "<b>Styling (10:00 – 11:00 AM).</b> Style your model within the time allowed.",
@@ -867,7 +807,7 @@ const EVENTS = [
 {
   id:"D1", name:"Design Unfolded", cls:"display-only",
   blurb:"Department work display — a walk-through exhibition of student design work. Free to view for every registered participant.",
-  time:"10:00 – 11:30 AM", venue:"SAC",
+  time:"10:00 – 11:30 AM", venue:"SAC", incharge:"Ms. Nisha",
   team:"Exhibition — not a competition", prize:"Showcase only",
   rounds:["<b>Open viewing (10:00 – 11:30 AM).</b> Walk through at any point during the window."],
   rules:[
@@ -880,7 +820,7 @@ const EVENTS = [
 {
   id:"D2", name:"The Runway Collective", cls:"display-only",
   blurb:"The fashion show — student collections on the runway at the Arena. Seating is first come, first served.",
-  time:"11:30 AM – 2:00 PM", venue:"Arena",
+  time:"11:30 AM – 2:00 PM", venue:"Arena", incharge:"Ms. Gloriya",
   team:"Showcase — not a competition", prize:"Showcase only",
   rounds:["<b>Runway (11:30 AM – 2:00 PM).</b> Collections presented in sequence."],
   rules:[

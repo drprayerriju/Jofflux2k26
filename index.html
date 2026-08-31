@@ -272,6 +272,43 @@ nav.desk a:hover{color:var(--copper)}
 .reg .eyebrow{color:var(--crimson)}
 .reg .sec-head p{color:var(--ink-dim)}
 .routes{display:grid;grid-template-columns:1fr;gap:16px}
+.closed-notice{
+  background:var(--board-2);border:1px solid var(--copper);border-radius:var(--r);
+  padding:22px 20px;margin-bottom:24px;
+}
+.closed-notice .cn-tag{
+  display:inline-block;background:var(--crimson);color:#fff;
+  font-family:var(--f-mono);font-size:11px;font-weight:600;letter-spacing:.14em;
+  padding:6px 11px;border-radius:var(--r);margin-bottom:12px;
+}
+.closed-notice h3{
+  font-family:var(--f-display);font-weight:700;font-size:clamp(19px,4.6vw,24px);
+  color:var(--silk);letter-spacing:-.01em;margin-bottom:12px;
+}
+.closed-notice ul{padding-left:20px;margin:0}
+.closed-notice li{color:var(--silk-dim);font-size:14.5px;line-height:1.7;margin-bottom:10px}
+.closed-notice li b{color:var(--silk)}
+.closed-notice .cn-foot{
+  margin-top:6px;font-family:var(--f-mono);font-size:11.5px;color:var(--copper);letter-spacing:.03em;
+}
+.route-disabled{
+  background:#EAEAE4;border-color:#B9B9B0;cursor:default;
+}
+.route-disabled::before{background:#9A9A90}
+.route-disabled:hover{transform:none;border-color:#B9B9B0;box-shadow:none}
+.route-disabled h3{color:#6B6B62}
+.route-disabled p{color:#8A8A80}
+.route-disabled .rnum{color:#8A8A80}
+.route-disabled .rclosed{
+  position:absolute;top:16px;right:16px;
+  font-family:var(--f-mono);font-weight:700;font-size:clamp(13px,3.4vw,15px);
+  letter-spacing:.08em;color:#8A8A80;
+}
+.rgo-off{
+  display:inline-block;background:#B9B9B0;color:#F4F4F0;
+  font-family:var(--f-mono);font-size:12.5px;font-weight:500;letter-spacing:.07em;text-transform:uppercase;
+  padding:13px 18px;border-radius:var(--r);
+}
 .route{
   position:relative;display:block;background:#fff;color:var(--ink);
   border:2px solid var(--ink);border-radius:var(--r);
@@ -446,7 +483,7 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
       <span class="chip">JOY UNIVERSITY CAMPUS</span>
       <span class="chip">9:30 AM – 4:00 PM</span>
       <span class="chip">OPEN TO ALL COLLEGES</span>
-      <span class="chip">REGISTER BY 30 AUGUST</span>
+      <span class="chip">SPOT REGISTRATION ON THE DAY</span>
     </div>
 
     <div class="count" id="count" aria-label="Time remaining until the symposium">
@@ -616,43 +653,51 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
 <section id="register" class="reg">
   <div class="wrap">
     <div class="sec-head">
-      <div class="eyebrow">Three ways to register · closes 30 August</div>
+      <div class="eyebrow">Online registration closed</div>
       <h2>Register</h2>
-      <p>Pick the one that describes you — the fee differs by route.</p>
+      <p>Online registration has closed. Spot registration continues at the venue on 1 September.</p>
     </div>
 
-    <div class="routes">
-      <a class="route" href="register.html">
+    <div class="closed-notice">
+      <div class="cn-tag">SPOT REGISTRATION</div>
+      <h3>Report at the venue to register on the day</h3>
+      <ul>
+        <li><b>If food coupons are available</b> — the fee is <b>₹250</b> and includes lunch, event kit, ID card and refreshments, same as online registration.</li>
+        <li><b>If food coupons run out</b> — <b>₹150 is waived</b>, so the fee is <b>₹100</b> only, without a lunch coupon. Lunch is still available for purchase at the college canteen.</li>
+        <li>Coupons are limited and given strictly on a first-come basis at the desk.</li>
+      </ul>
+      <p class="cn-foot">This applies to all participants — outside colleges, Joy University, and Online Paper Presentation.</p>
+    </div>
+
+    <div class="routes routes-closed">
+      <div class="route route-disabled">
         <span class="rnum">01</span>
-        <span class="rfee">₹250</span>
+        <span class="rclosed">CLOSED</span>
         <h3>Outside College Participants</h3>
-        <p>Students from any institution other than Joy University. Choose up to three events, pay by UPI, and enter your transaction number.</p>
-        <span class="rinc">Includes lunch · event kit · ID card · refreshments</span>
-        <span class="rgo">Outside College Participant →</span>
-      </a>
+        <p>Online registration for outside-college participants has closed. Spot registration is available at the venue.</p>
+        <span class="rgo rgo-off">Registration closed</span>
+      </div>
 
-      <a class="route" href="https://forms.gle/Tb4uJyt2MyJJpkWMA" target="_blank" rel="noopener">
+      <div class="route route-disabled">
         <span class="rnum">02</span>
-        <span class="rfee">₹100</span>
+        <span class="rclosed">CLOSED</span>
         <h3>Joy University Participants</h3>
-        <p>For students of Joy University. Opens the internal registration form for on-campus participants.</p>
-        <span class="rinc">Includes lunch · event kit · ID card · refreshments</span>
-        <span class="rgo">Joy University Participant →</span>
-      </a>
+        <p>Online registration for Joy University participants has closed. Spot registration is available at the venue.</p>
+        <span class="rgo rgo-off">Registration closed</span>
+      </div>
 
-      <a class="route" href="https://forms.gle/AEKTDwrByFz3d9fr9" target="_blank" rel="noopener">
+      <div class="route route-disabled">
         <span class="rnum">03</span>
-        <span class="rfee">₹100</span>
+        <span class="rclosed">CLOSED</span>
         <h3>Online Paper Presentation</h3>
-        <p>Presenting your paper remotely rather than travelling to campus. Online session runs 10:15 AM – 1:00 PM.</p>
-        <span class="rinc">E-certificate · no campus lunch or kit</span>
-        <span class="rgo">Online Paper Participant →</span>
-      </a>
+        <p>Online registration for the online paper session has closed. Contact a coordinator if you still wish to present.</p>
+        <span class="rgo rgo-off">Registration closed</span>
+      </div>
     </div>
 
     <div class="rnote">
-      <b>All three close on 30 August 2026.</b> Payments go to the official Joy University UPI account.
-      Each participant may enter a maximum of three competitions.
+      <b>Already registered?</b> Bring your college ID and be ready to show your payment screenshot at the desk.
+      Assemble at SA Raja Memorial Hall before 9:15 AM.
     </div>
   </div>
 </section>
@@ -728,8 +773,8 @@ footer p{font-family:var(--f-mono);font-size:11.5px;color:var(--silk-dim);line-h
 </footer>
 
 <div class="stickycta">
-  <div class="fee"><b>₹100–₹250</b>by route</div>
-  <a href="#register" class="btn btn-primary">Register now</a>
+  <div class="fee"><b>Spot only</b>at the venue</div>
+  <a href="#register" class="btn btn-primary">See details</a>
 </div>
 
 <!-- ================= MODAL ================= -->

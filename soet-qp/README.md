@@ -16,15 +16,18 @@ You can also open `index.html` locally in a current desktop browser to use the g
 
 ## Faculty workflow
 
-- Select the batch and semester. No programme selection is required.
-- Choose the course from one dropdown showing code(s) first, separated by slashes, followed by the course name. Matching course names within a semester are grouped with all unique codes. Review the auto-filled date and session. Optional course corrections are available in an expandable editor.
-- Select Set A or Set B and enter the number of copies required.
+- Choose Backlog or Comprehensive, then select the batch and semester. No programme selection is required.
+- Backlog lists all subjects in the existing catalogue, regardless of the selected batch. Set the required batch/semester heading yourself and enter the backlog examination date. The uploaded timetable is comprehensive; backlog dates are therefore not copied from it. Courses not present in the supplied catalogue can be entered manually or added to catalog.js.
+- Choose the course from one dropdown showing code(s) first, separated by slashes, followed by the course name. Matching course names are grouped with all unique codes: within the selected semester for comprehensive, or across the catalogue for backlog. Review the auto-filled date and session. Optional course corrections are available in an expandable editor.
+- Comprehensive: select Set A or Set B. Backlog: no set is requested. Enter the number of copies required for either mode.
 - Download a personalised blank Word template, or continue to enter all 13 questions and mappings.
 - Save a private JSON draft to resume later. This is a separate download, not a server save. Closing or refreshing the tab discards unsaved entries.
 - Download the completed DOCX and review pagination and equation appearance in Word before submitting it through the school's established process.
 
 Downloads follow:
 `SOET_SET A_CourseCode_CourseName_DD.MM.YYYY_FN_NumberOfCopies.docx`
+Backlog downloads omit the set segment: `SOET_CourseCode_CourseName_DD.MM.YYYY_FN_NumberOfCopies.docx`. Their title is `BACKLOG EXAMINATION`; comprehensive papers retain `COMPREHENSIVE SEMESTER EXAMINATION`.
+
 Multiple course codes use underscores in the filename and slashes in the paper heading. Characters that cannot appear in filenames are replaced with underscores.
 
 ## Document format
